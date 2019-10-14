@@ -1,0 +1,50 @@
+// Import Vuetify styling
+@require '~vuetify/src/stylus/app.styl'
+
+header {
+    background: rgb(0, 228, 143);
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+}
+
+.logo,
+li a {
+    padding: 1em 2em;
+    display: block;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    font-size: .9em;
+}
+
+nav {
+    justify-self: right;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    display: inline;
+}
+
+li a {
+    padding: 1em 2em;
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.subheading {
+    font-size: 1.5em;
+    margin-bottom: 2em;
+    text-transform: uppercase;
+    color: rgb(159,157,198);
+    font-weight: bold;
+}
+
+p {
+    font-size: 1.2em;
+    line-height: 1.4em;
+}
