@@ -13,7 +13,22 @@
 
 <script>
 export default {
-  props: ['thumbnail', 'title', 'previewText', 'id']
+  props: {
+    thumbnail: {
+      type: String,
+      default:
+        'https://i1.wp.com/foodandnutrition.org/wp-content/uploads/fertility-food-1.jpg?resize=780%2C520&ssl=1'
+    },
+    title: {
+      type: String,
+      default: 'this is food'
+    },
+    previewText: {
+      type: String,
+      default: 'this food is great'
+    },
+    id: String
+  }
 }
 </script>
 

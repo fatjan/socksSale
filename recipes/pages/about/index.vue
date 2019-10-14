@@ -1,6 +1,19 @@
 <template>
   <div>
-    <h1>THE ABOUT PAGE</h1>
-    <p>Hi, this is my awesome recipe website.</p>
+    <p>Hi from {{ name }}</p>
+    <NLink to="/">Home page</NLink>
   </div>
 </template>
+
+<script>
+export default {
+  asyncData() {
+    return {
+      name: process.static ? 'static' : process.server ? 'server' : 'client'
+    }
+  },
+  head: {
+    title: 'About page'
+  }
+}
+</script>

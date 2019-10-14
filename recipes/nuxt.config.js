@@ -1,10 +1,9 @@
 import colors from 'vuetify/es5/util/colors'
-
 export default {
   mode: 'spa',
   /*
-   ** Headers of the page
-   */
+      Headers of the page
+     */
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_name,
     title: process.env.npm_package_name || '',
@@ -17,71 +16,85 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
+      }
+    ]
   },
   /*
-   ** Customize the progress-bar color
-   */
-  loading: { color: '#fff' },
+      Customize the progress-bar color
+     */
+  loading: { color: 'primary', failedColor: 'red', height: '4px' },
   /*
-   ** Global CSS
-   */
-  css: [],
+      Global CSS
+     */
+  css: ['~/assets/style/app.styl'],
   /*
-   ** Plugins to load before mounting the App
-   */
+      Plugins to load before mounting the App
+     */
   plugins: [],
   /*
-   ** Nuxt.js dev-modules
-   */
-  buildModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module',
-    '@nuxtjs/vuetify'
-  ],
-  /*
-   ** Nuxt.js modules
-   */
+      Nuxt.js modules
+     */
   modules: [
+    '@nuxtjs/vuetify',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/eslint-module'
   ],
   /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
+      Axios module configuration
+      See https://axios.nuxtjs.org/options
+     */
   axios: {
-    baseURL: 'http://localhost:8000/'
+    baseURL: 'http://localhost:8000/',
+    retry: false,
+    proxyHeaders: false,
+    credentials: false
   },
   /*
-   ** vuetify module configuration
-   ** https://github.com/nuxt-community/vuetify-module
-   */
+      vuetify module configuration
+      https://github.com/nuxt-community/vuetify-module
+     */
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
-      themes: {
-        dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
-        }
-      }
+      primary: '#49bcf7',
+      accent: colors.grey.darken3,
+      secondary: colors.amber.darken3,
+      info: colors.teal.lighten1,
+      warning: colors.amber.base,
+      error: colors.deepOrange.accent4,
+      success: colors.green.accent3
     }
   },
   /*
-   ** Build configuration
-   */
+      Build configuration
+     */
   build: {
+    transpile: ['vuetify/lib'],
+    loaders: {
+      stylus: {
+        import: ['~assets/style/variables.styl']
+      }
+    },
+
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) {
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
+    }
   }
 }
